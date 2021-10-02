@@ -24,7 +24,7 @@ if (!empty($_POST)) {
 	$fileName = $_FILES['image']['name'];
 	if (!empty($fileName)) {
 		$ext = substr($fileName, -3);
-		if ($ext != 'jpg' && $ext != 'gif' && $ext != 'png') {
+		if ($ext != 'jpg' && $ext != 'gif' && $ext != 'png' && $ext != 'peg') {
 			$error['image'] = 'type';
 		}
 	}
@@ -33,7 +33,7 @@ if (!empty($_POST)) {
 		$image = date('YmdHis') . $_FILES['image']['name'];
 		move_uploaded_file($_FILES['image']['tmp_name'], '../member_picture/' . $image);
 		$_SESSION['join'] = $_POST;
-		$_SESSION['join']['image'] = $_image;
+		$_SESSION['join']['image'] = $image;
 		header('Location: check.php');
 		exit();
 	}
@@ -95,6 +95,9 @@ if (!empty($_POST)) {
 						<input type="file" name="image" size="35" value="test" />
 						<?php if ($error['image'] === 'type') : ?>
 							<p class="error">* 写真などは、「.jpg」または「.gif」「.png」の画像を指定してください。</p><!-- /.error -->
+						<?php endif; ?>
+						<?php if (!empty($error)) : ?>
+							<p class="error">* 恐れ入りますが、画像を改めて指定してください。</p><!-- /.error -->
 						<?php endif; ?>
 					</dd>
 				</dl>
