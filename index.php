@@ -63,7 +63,8 @@ if (isset($_REQUEST['res'])) {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ひとこと掲示板</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -72,7 +73,7 @@ if (isset($_REQUEST['res'])) {
       <h1>ひとこと掲示板</h1>
     </div>
     <div id="content">
-      <div style="text-align: right"><a href="logout.php">ログアウト</a></div>
+      <div style="text-align: right"><a class="btn btn-secondary" href="logout.php">ログアウト</a></div>
       <form action="" method="post">
         <dl>
           <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)); ?>さん、メッセージをどうぞ</dt>
