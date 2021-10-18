@@ -41,51 +41,52 @@ if (!empty($_POST)) {
 
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
   <title>ログインする</title>
 </head>
 
 <body>
-  <div id="wrap">
-    <div id="head">
-      <h1>ログインする</h1>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ログイン</a>
     </div>
-    <div id="content">
-      <div id="lead">
-        <p>メールアドレスとパスワードを記入してログインしてください。</p>
-        <p>入会手続きがまだの方はこちらからどうぞ。</p>
-        <p>&raquo;<a href="join/">入会手続きをする</a></p>
+  </nav>
+  <div class="container">
+    <div class="mt-3" id="lead">
+      <p>メールアドレスとパスワードを記入してログインしてください。</p>
+      <p>入会手続きがまだの方はこちらからどうぞ。</p>
+      <p>&raquo;<a href="join/">入会手続きをする</a></p>
+    </div>
+    <form action="" method="post">
+      <dl>
+        <dt>メールアドレス</dt>
+        <dd class="input-group flex-nowrap mb-3">
+          <input class="form-control" type="text" name="email" size="35" maxlength="255" value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" />
+          <?php if ($error['login'] === 'blank') : ?>
+            <p class="error">メールアドレスとパスワードを正しく入力してください。</p><!-- /.error -->
+          <?php endif; ?>
+          <?php if ($error['login'] === 'failed') : ?>
+            <p class="error">ログインに失敗しました。正しくご記入ください</p><!-- /.error -->
+          <?php endif; ?>
+        </dd>
+        <dt>パスワード</dt>
+        <dd class="input-group flex-nowrap mb-3">
+          <input class="form-control" type="password" name="password" size="35" maxlength="255" value="<?php echo htmlspecialchars($_POST['password'], ENT_QUOTES); ?>" />
+        </dd>
+        <dt>ログイン情報の記録</dt>
+        <dd>
+          <input id="save" type="checkbox" name="save" value="on">
+          <label for="save">次回からは自動的にログインする</label>
+        </dd>
+      </dl>
+      <div>
+        <input class="btn btn-outline-primary" type="submit" value="ログインする" />
       </div>
-      <form action="" method="post">
-        <dl>
-          <dt>メールアドレス</dt>
-          <dd>
-            <input type="text" name="email" size="35" maxlength="255" value="<?php echo htmlspecialchars($email, ENT_QUOTES); ?>" />
-            <?php if ($error['login'] === 'blank') : ?>
-              <p class="error">メールアドレスとパスワードを正しく入力してください。</p><!-- /.error -->
-            <?php endif; ?>
-            <?php if ($error['login'] === 'failed') : ?>
-              <p class="error">ログインに失敗しました。正しくご記入ください</p><!-- /.error -->
-            <?php endif; ?>
-          </dd>
-          <dt>パスワード</dt>
-          <dd>
-            <input type="password" name="password" size="35" maxlength="255" value="<?php echo htmlspecialchars($_POST['password'], ENT_QUOTES); ?>" />
-          </dd>
-          <dt>ログイン情報の記録</dt>
-          <dd>
-            <input id="save" type="checkbox" name="save" value="on">
-            <label for="save">次回からは自動的にログインする</label>
-          </dd>
-        </dl>
-        <div>
-          <input type="submit" value="ログインする" />
-        </div>
-      </form>
-    </div>
-    <div id="foot">
-      <p><img src="images/txt_copyright.png" width="136" height="15" alt="(C) H2O Space. MYCOM" /></p>
-    </div>
+    </form>
+  </div>
+  <div id="foot">
+    <p><img src="images/txt_copyright.png" width="136" height="15" alt="(C) H2O Space. MYCOM" /></p>
   </div>
 </body>
 

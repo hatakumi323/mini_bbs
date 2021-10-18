@@ -20,27 +20,29 @@ $posts->execute(array($_REQUEST['id']));
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ひとこと掲示板</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
 </head>
 
 <body>
-  <div id="wrap">
-    <div id="head">
-      <h1>ひとこと掲示板</h1>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ひとこと提示版</a>
+      <div style="text-align: right"><a class="btn btn-outline-success" href="logout.php">ログアウト</a></div>
     </div>
-    <div id="content">
-      <p>&laquo;<a href="index.php">一覧にもどる</a></p>
+  </nav>
+  <div class="container">
+    <p>&laquo;<a href="index.php">一覧にもどる</a></p>
 
-      <?php if ($post = $posts->fetch()) : ?>
-        <div class="msg">
-          <img width="100" height="100" src="member_picture/<?php print(htmlspecialchars($post['picture'])); ?>" />
-          <p><?php print(htmlspecialchars($post['message'])); ?><span class="name">（<?php print(htmlspecialchars($post['name'])); ?>）</span></p>
-          <p class="day"><?php print(htmlspecialchars($post['created'])); ?></p>
-        </div>
-      <?php else : ?>
-        <p>その投稿は削除されたか、URLが間違えています</p>
-      <?php endif; ?>
-    </div>
+    <?php if ($post = $posts->fetch()) : ?>
+      <div class="msg">
+        <img width="100" height="100" src="member_picture/<?php print(htmlspecialchars($post['picture'])); ?>" />
+        <p><?php print(htmlspecialchars($post['message'])); ?><span class="name">（<?php print(htmlspecialchars($post['name'])); ?>）</span></p>
+        <p class="day"><?php print(htmlspecialchars($post['created'])); ?></p>
+      </div>
+    <?php else : ?>
+      <p>その投稿は削除されたか、URLが間違えています</p>
+    <?php endif; ?>
   </div>
 </body>
 

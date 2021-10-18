@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,21 @@
 	<title>会員登録</title>
 
 	<link rel="stylesheet" href="../style.css" />
+	<link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css" />
 </head>
+
 <body>
-<div id="wrap">
-<div id="head">
-<h1>会員登録</h1>
-</div>
+	<nav class="navbar navbar-light bg-light">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">会員登録</a>
+		</div>
+	</nav>
 
-<div id="content">
-<p>ユーザー登録が完了しました</p>
-<p><a href="../">ログインする</a></p>
-</div>
+	<div class="container">
+		<p class="mt-3">ユーザー登録が完了しました</p>
+		<p class="btn btn-outline-primary"><a href="../">ログインする</a></p>
+	</div>
 
-</div>
 </body>
+
 </html>

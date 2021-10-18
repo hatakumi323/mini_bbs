@@ -63,63 +63,64 @@ if (isset($_REQUEST['res'])) {
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ひとこと掲示板</title>
 
-  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.css" />
 </head>
 
 <body>
-  <div id="wrap">
-    <div id="head">
-      <h1>ひとこと掲示板</h1>
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">ひとこと提示版</a>
+      <div style="text-align: right"><a class="btn btn-outline-success" href="logout.php">ログアウト</a></div>
     </div>
-    <div id="content">
-      <div style="text-align: right"><a class="btn btn-secondary" href="logout.php">ログアウト</a></div>
-      <form action="" method="post">
-        <dl>
-          <dt><?php print(htmlspecialchars($member['name'], ENT_QUOTES)); ?>さん、メッセージをどうぞ</dt>
-          <dd>
-            <textarea name="message" cols="50" rows="5">
+  </nav>
+  <div class="container">
+    <form action="" method="post">
+      <dl>
+        <dt class="mt-3 mb-3"><?php print(htmlspecialchars($member['name'], ENT_QUOTES)); ?>さん、メッセージをどうぞ</dt>
+        <dd class="form-floating">
+          <textarea class="form-control" name="message" style="height: 100px" placeholder="Leave a comment here">
               <?php print(htmlspecialchars($message, ENT_QUOTES)); ?>
             </textarea>
-            <input type="hidden" name="reply_post_id" value="<?php print(htmlspecialchars($_REQUEST['res'], ENT_QUOTES)); ?>" />
-          </dd>
-        </dl>
-        <div>
-          <p>
-            <input type="submit" value="投稿する" />
-          </p>
-        </div>
-      </form>
+          <input type="hidden" name="reply_post_id" value="<?php print(htmlspecialchars($_REQUEST['res'], ENT_QUOTES)); ?>" />
+        </dd>
+      </dl>
+      <div>
+        <p>
+          <input class="btn btn-outline-primary" type="submit" value="投稿する" />
+        </p>
+      </div>
+    </form>
 
-      <?php foreach ($posts as $post) : ?>
-        <div class="msg">
-          <img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)); ?>" width="48" height="48" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>" />
-          <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)); ?><span class="name">（<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>）</span>[<a href="view.php?res=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)); ?>">Re</a>]</p>
-          <p class="day"><a href="view.php?id=<?php print(htmlentities($post['id'])); ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
-            <?php if ($post['reply_message_id'] > 0) : ?>
-              <a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'], ENT_QUOTES)); ?>">
-                返信元のメッセージ</a>
-            <?php endif; ?>
-            <?php if ($_SESSION['id'] === $post['member_id']) : ?>
-              [<a href="delete.php?id=<?php print(htmlentities($post['id'])); ?>" style="color: #F33;">削除</a>]
-            <?php endif; ?>
-          </p>
-        </div>
-      <?php endforeach; ?>
+    <?php foreach ($posts as $post) : ?>
+      <div class="msg">
+        <img src="member_picture/<?php print(htmlspecialchars($post['picture'], ENT_QUOTES)); ?>" width="48" height="48" alt="<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>" />
+        <p><?php print(htmlspecialchars($post['message'], ENT_QUOTES)); ?><span class="name">（<?php print(htmlspecialchars($post['name'], ENT_QUOTES)); ?>）</span>[<a href="view.php?res=<?php print(htmlspecialchars($post['id'], ENT_QUOTES)); ?>">Re</a>]</p>
+        <p class="day"><a href="view.php?id=<?php print(htmlentities($post['id'])); ?>"><?php print(htmlspecialchars($post['created'], ENT_QUOTES)); ?></a>
+          <?php if ($post['reply_message_id'] > 0) : ?>
+            <a href="view.php?id=<?php print(htmlspecialchars($post['reply_message_id'], ENT_QUOTES)); ?>">
+              返信元のメッセージ</a>
+          <?php endif; ?>
+          <a class="heart" href="index.php?like=<?php echo print(htmlspecialchars($post['id'])); ?>">&#9825;</a>
+          <?php if ($_SESSION['id'] === $post['member_id']) : ?>
+            [<a href="delete.php?id=<?php print(htmlentities($post['id'])); ?>" style="color: #F33;">削除</a>]
+          <?php endif; ?>
+        </p>
+      </div>
+    <?php endforeach; ?>
 
-      <ul class="paging">
-        <?php if ($page > 1) : ?>
-          <li><a href="index.php?page=<?php print($page - 1); ?>">前のページへ</a></li>
-        <?php else : ?>
-          <li>前のページへ</li>
-        <?php endif; ?>
-        <?php if ($page < $maxPage) : ?>
-          <li><a href="index.php?page=<?php print($page + 1); ?>">次のページへ</a></li>
-        <?php else : ?>
-          <li>次のページへ</li>
-        <?php endif; ?>
-      </ul>
-    </div>
+    <ul class="paging">
+      <?php if ($page > 1) : ?>
+        <li><a href="index.php?page=<?php print($page - 1); ?>">前のページへ</a></li>
+      <?php else : ?>
+        <li>前のページへ</li>
+      <?php endif; ?>
+      <?php if ($page < $maxPage) : ?>
+        <li><a href="index.php?page=<?php print($page + 1); ?>">次のページへ</a></li>
+      <?php else : ?>
+        <li>次のページへ</li>
+      <?php endif; ?>
+    </ul>
   </div>
 </body>
 
